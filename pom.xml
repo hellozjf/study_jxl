@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.hellozjf</groupId>
-  <artifactId>study_jxl</artifactId>
+  <artifactId>study_jxls</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>study_jxl</name>
+  <name>study_jxls</name>
   <url>http://maven.apache.org</url>
 
   <properties>
