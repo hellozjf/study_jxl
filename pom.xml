@@ -12,14 +12,16 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
   <dependencies>
     <!--<dependency>-->
-      <!--<groupId>junit</groupId>-->
-      <!--<artifactId>junit</artifactId>-->
-      <!--<version>3.8.1</version>-->
-      <!--<scope>test</scope>-->
+    <!--<groupId>junit</groupId>-->
+    <!--<artifactId>junit</artifactId>-->
+    <!--<version>3.8.1</version>-->
+    <!--<scope>test</scope>-->
     <!--</dependency>-->
     <dependency>
       <groupId>net.sf.jxls</groupId>
@@ -28,4 +30,49 @@
       <scope>compile</scope>
     </dependency>
   </dependencies>
+  <build>
+    <plugins>
+      <!-- 打包jar文件时，配置manifest文件，加入lib包的jar依赖 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <classesDirectory>target/classes/</classesDirectory>
+          <archive>
+            <manifest>
+              <mainClass>com.hellozjf.App</mainClass>
+              <!-- 打包时 MANIFEST.MF文件不记录的时间戳版本 -->
+              <useUniqueVersions>false</useUniqueVersions>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>lib/</classpathPrefix>
+            </manifest>
+            <manifestEntries>
+              <Class-Path>.</Class-Path>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <type>jar</type>
+              <includeTypes>jar</includeTypes>
+              <!--<useUniqueVersions>false</useUniqueVersions>-->
+              <outputDirectory>
+                ${project.build.directory}/lib
+              </outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
